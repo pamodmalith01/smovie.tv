@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>smovie.tv - Premium Movies</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            500: '#e50914', // Premium Red Accent
+                            600: '#b20710',
+                        },
+                        dark: {
+                            900: '#0f0f11', // Deep dark background
+                            800: '#18181b', // Slightly lighter dark
+                            700: '#27272a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0f0f11;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #3f3f46;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #e50914;
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+</head>
+
+<body class="bg-dark-900 text-gray-200 font-sans min-h-screen flex flex-col">
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full z-50 bg-dark-900/80 backdrop-blur-md border-b border-dark-700 transition-all shadow-lg"
+        id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo & Links -->
+                <div class="flex items-center">
+                    <a href="#" class="flex-shrink-0 flex items-center pr-6 border-r border-dark-700">
+                        <i class="fas fa-play-circle text-brand-500 text-3xl mr-2"></i>
+                        <span class="text-white text-2xl font-bold tracking-tight">smovie<span
+                                class="text-brand-500">.tv</span></span>
+                    </a>
+                    <div class="hidden md:block">
+                        <div class="ml-6 flex items-center space-x-6">
+                            <a href="#"
+                                class="text-white font-medium hover:text-brand-500 transition duration-200">Home</a>
+                            <a href="#movies-section"
+                                class="text-gray-400 font-medium hover:text-white transition duration-200">Movies</a>
+                            <a href="#admin-section" id="nav-add-movie"
+                                class="hidden text-brand-500 font-bold border border-brand-500/50 hover:bg-brand-500 hover:text-white px-4 py-2 rounded-lg text-sm transition duration-300 items-center">
+                                <i class="fas fa-plus mr-2"></i> Add Movie
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- User / Auth -->
+                <div class="flex items-center">
+                    <div id="auth-container">
+                        <button id="login-btn"
+                            class="bg-white text-dark-900 hover:bg-gray-200 px-5 py-2.5 rounded-lg text-sm font-bold flex items-center transition duration-300 shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+                            <i class="fab fa-google mr-2 text-brand-500 text-lg"></i> Sign in with Google
+                        </button>
+                    </div>
+                    <div id="user-profile"
+                        class="hidden items-center space-x-4 bg-dark-800 border border-dark-700 rounded-full pl-2 pr-4 py-1.5 shadow-inner">
+                        <img id="user-avatar" src="" alt="User"
+                            class="w-9 h-9 rounded-full border border-gray-600 shadow-sm">
+                        <span id="user-name" class="text-sm font-semibold text-gray-200 hidden sm:block"></span>
+                        <button id="logout-btn" class="text-gray-400 hover:text-brand-500 transition duration-200 ml-2"
+                            title="Logout">
+                            <i class="fas fa-sign-out-alt text-lg"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="relative pt-20 pb-32 flex content-center items-center justify-center min-h-[75vh]">
+        <div class="absolute top-0 w-full h-full bg-center bg-cover"
+            style="background-image: url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=2000&auto=format&fit=crop');">
+            <span
+                class="w-full h-full absolute opacity-90 bg-gradient-to-t from-dark-900 via-dark-900/80 to-transparent"></span>
+            <span
+                class="w-full h-full absolute opacity-90 bg-gradient-to-r from-dark-900 via-dark-900/60 to-transparent"></span>
+        </div>
+        <div class="container relative mx-auto px-4 text-left z-10 w-full max-w-7xl">
+            <div class="items-center flex flex-wrap">
+                <div class="w-full lg:w-7/12 mt-12">
+                    <span class="text-brand-500 font-bold tracking-wider uppercase text-sm mb-4 block">smovie.tv
+                        Exclusive</span>
+                    <h1 class="text-white font-extrabold text-5xl sm:text-7xl leading-tight drop-shadow-lg">
+                        Unlimited Movies,<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">Unmatched
+                            Quality.</span>
+                    </h1>
+                    <p class="mt-6 text-xl text-gray-300 max-w-2xl drop-shadow">
+                        Experience cinema like never before. Watch the latest blockbusters and timeless classics
+                        instantly. Only on smovie.tv.
+                    </p>
+                    <div class="mt-10 flex gap-4">
+                        <a href="#movies-section"
+                            class="bg-brand-500 hover:bg-brand-600 text-white font-bold py-4 px-8 rounded-lg shadow-[0_0_20px_rgba(229,9,20,0.4)] transition duration-300 flex items-center text-lg">
+                            <i class="fas fa-play mr-2"></i> Start Watching
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 -mt-20 relative z-20">
+
+        <!-- Movies Section -->
+        <section id="movies-section" class="mb-16">
+            <div class="flex items-end justify-between mb-8">
+                <div>
+                    <h2 class="text-3xl font-bold text-white flex items-center">
+                        <span class="w-1.5 h-8 bg-brand-500 mr-3 rounded-full block"></span> Trending Now
+                    </h2>
+                </div>
+            </div>
+
+            <div id="movies-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 sm:gap-8">
+                <!-- Movies will be dynamically injected here via JS -->
+                <div class="col-span-full flex justify-center py-20">
+                    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-500"></div>
+                </div>
+            </div>
+            <!-- Pagination -->
+            <div id="pagination-controls" class="flex justify-center items-center space-x-4 mt-8 mb-16">
+                <button id="prev-page"
+                    class="bg-dark-800 hover:bg-dark-700 text-white px-6 py-2 rounded-lg border border-dark-700 disabled:opacity-50 disabled:cursor-not-allowed transition duration-200">
+                    <i class="fas fa-chevron-left mr-2"></i> Previous
+                </button>
+                <span id="page-info" class="text-gray-400 font-medium">Page <span id="current-page"
+                        class="text-white font-bold">1</span></span>
+                <button id="next-page"
+                    class="bg-dark-800 hover:bg-dark-700 text-white px-6 py-2 rounded-lg border border-dark-700 disabled:opacity-50 disabled:cursor-not-allowed transition duration-200">
+                    Next <i class="fas fa-chevron-right ml-2"></i>
+                </button>
+            </div>
+
+            <!-- Admin / Add Movie Section (Hidden by default) -->
+            <section id="admin-section" class="hidden mb-16">
+                <div
+                    class="bg-dark-800 rounded-2xl p-8 sm:p-10 border border-dark-700 shadow-2xl relative overflow-hidden">
+                    <!-- Decorative background elements -->
+                    <div class="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-brand-500/10 rounded-full blur-3xl">
+                    </div>
+                    <div class="absolute bottom-0 left-0 -mb-10 -ml-10 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl">
+                    </div>
+
+                    <div class="relative z-10">
+                        <div class="flex items-center mb-8 border-b border-dark-700 pb-5">
+                            <div class="bg-brand-500/20 p-3 rounded-lg mr-4">
+                                <i class="fas fa-film text-brand-500 text-2xl"></i>
+                            </div>
+                            <div>
+                                <h2 class="text-3xl font-bold text-white">Add New Movie</h2>
+                                <p class="text-gray-400 mt-1 text-sm">Upload to smovie.tv catalog. Authorized access
+                                    only.
+                                </p>
+                            </div>
+                        </div>
+
+                        <form id="add-movie-form" class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-2 md:col-span-2">
+                                    <label class="block text-sm font-medium text-gray-300">Movie Title <span
+                                            class="text-brand-500">*</span></label>
+                                    <input type="text" id="movie-title" required
+                                        class="w-full bg-dark-900 border border-dark-700 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition duration-200"
+                                        placeholder="e.g. Spider-Man: No Way Home">
+                                </div>
+
+                                <div class="space-y-2">
+                                    <label class="block text-sm font-medium text-gray-300">Release Year <span
+                                            class="text-brand-500">*</span></label>
+                                    <div class="relative">
+                                        <div
+                                            class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                            <i class="fas fa-calendar-alt text-gray-500"></i>
+                                        </div>
+                                        <input type="number" id="movie-year" required min="1900" max="2099"
+                                            class="w-full bg-dark-900 border border-dark-700 rounded-xl pl-11 pr-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition duration-200"
+                                            placeholder="2024">
+                                    </div>
+                                </div>
+
+                                <div class="space-y-2">
+                                    <label class="block text-sm font-medium text-gray-300">IMDb Rating <span
+                                            class="text-brand-500">*</span></label>
+                                    <div class="relative">
+                                        <div
+                                            class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                            <i class="fas fa-star text-yellow-500"></i>
+                                        </div>
+                                        <input type="number" step="0.1" id="movie-rating" required min="0" max="10"
+                                            class="w-full bg-dark-900 border border-dark-700 rounded-xl pl-11 pr-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition duration-200"
+                                            placeholder="8.5">
+                                    </div>
+                                </div>
+
+                                <div class="space-y-2 md:col-span-2">
+                                    <label class="block text-sm font-medium text-gray-300">Poster Image URL <span
+                                            class="text-brand-500">*</span></label>
+                                    <div class="relative">
+                                        <div
+                                            class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                            <i class="fas fa-image text-gray-500"></i>
+                                        </div>
+                                        <input type="url" id="movie-poster" required
+                                            class="w-full bg-dark-900 border border-dark-700 rounded-xl pl-11 pr-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition duration-200"
+                                            placeholder="https://example.com/poster.jpg">
+                                    </div>
+                                </div>
+
+                                <div class="space-y-2 md:col-span-2">
+                                    <label class="block text-sm font-medium text-gray-300">Upload Movie File (MP4/MKV)
+                                        <span class="text-brand-500">*</span></label>
+                                    <div class="relative">
+                                        <div
+                                            class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                            <i class="fas fa-video text-gray-500"></i>
+                                        </div>
+                                        <input type="file" id="movie-file" accept="video/*" required
+                                            class="w-full bg-dark-900 border border-dark-700 rounded-xl pl-11 pr-4 py-3 text-white file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-brand-500 file:text-white hover:file:bg-brand-600 transition duration-200">
+                                    </div>
+                                    <div id="upload-progress-container"
+                                        class="hidden w-full bg-dark-700 rounded-full h-2.5 mt-4 overflow-hidden">
+                                        <div id="upload-progress-bar"
+                                            class="bg-brand-500 h-full w-0 transition-all duration-300"></div>
+                                    </div>
+                                    <p id="upload-status" class="text-xs text-gray-500 mt-2 hidden">Uploading your
+                                        movie... please don't close this tab.</p>
+                                </div>
+                            </div>
+
+                            <div class="pt-6">
+                                <button type="submit" id="submit-btn"
+                                    class="w-full md:w-auto px-10 py-4 bg-brand-500 hover:bg-brand-600 text-white font-bold rounded-xl transition duration-300 shadow-[0_4px_15px_rgba(229,9,20,0.4)] hover:shadow-[0_6px_20px_rgba(229,9,20,0.6)] transform hover:-translate-y-0.5 flex items-center justify-center">
+                                    <i class="fas fa-cloud-upload-alt mr-2 text-xl"></i> Publish to Catalog
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark-900 border-t border-dark-700 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0 flex items-center">
+                    <i class="fas fa-play-circle text-brand-500 text-2xl mr-2"></i>
+                    <span class="text-white text-xl font-bold tracking-tight">smovie<span
+                            class="text-brand-500">.tv</span></span>
+                </div>
+                <div class="text-gray-400 text-sm text-center md:text-left">
+                    &copy; 2026 smovie.tv - Created specially for <strong>Pamod Malith</strong>.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Application Script -->
+    <script type="module" src="app.js"></script>
+</body>
+
+</html>
